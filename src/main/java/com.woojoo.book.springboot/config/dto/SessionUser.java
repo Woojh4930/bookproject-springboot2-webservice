@@ -1,10 +1,12 @@
-package com.woojoo.book.springboot.config.auth.dto;
+package com.woojoo.book.springboot.config.dto;
 
 import com.woojoo.book.springboot.domain.user.User;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class SessionUser {
+public class SessionUser implements Serializable {
 
     private String name;
     private String email;

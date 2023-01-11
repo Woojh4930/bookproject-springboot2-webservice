@@ -1,6 +1,6 @@
 package com.woojoo.book.springboot.config.auth;
 
-import com.woojoo.book.springboot.config.auth.dto.SessionUser;
+import com.woojoo.book.springboot.config.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

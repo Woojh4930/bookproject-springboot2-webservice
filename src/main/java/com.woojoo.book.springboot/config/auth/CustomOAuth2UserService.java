@@ -1,6 +1,6 @@
 package com.woojoo.book.springboot.config.auth;
 
-import com.woojoo.book.springboot.config.auth.dto.SessionUser;
+import com.woojoo.book.springboot.config.dto.SessionUser;
 import com.woojoo.book.springboot.config.dto.OAuthAttributes;
 import com.woojoo.book.springboot.domain.user.User;
 import com.woojoo.book.springboot.domain.user.UserRepository;
