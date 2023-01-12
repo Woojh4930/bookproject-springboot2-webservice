@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -13,6 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+@ContextConfiguration
 @SpringBootTest
 public class PostsRepositoryTest {
 
@@ -22,6 +26,12 @@ public class PostsRepositoryTest {
     @After
     public void cleanup() {
         postsRepository.deleteAll();
+    }
+
+    @Configuration
+    @ComponentScan("com.woojoo.book.springboot")
+    public static class TestConfig {
+
     }
 
     @Test
