@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+
+files:
+  - source:  /
+    destination: /home/ec2-user/app
+    overwrite: yes
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: woojoo-springboot2-webservice
+    group: woojoo-springboot2-webservice
+
+hooks:
+  ApplicationStart:
+    - location: /home/ec2-user/app/step1/deploy.sh
+      timeout: 60
+      runas: woojoo-springboot2-webservice
