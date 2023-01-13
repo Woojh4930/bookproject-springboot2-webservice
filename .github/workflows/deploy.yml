@@ -42,7 +42,7 @@ jobs:
       with:
         arguments: clean build -x test
     - name: Grant execute permission for jar
-      run: ls ./gradle/wrapper
+      run: cat ./gradle/wrapper/gradle-wrapper.jar
 
     # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
     - name: Configure AWS credentials
