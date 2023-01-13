@@ -16,4 +16,3 @@ hooks:
   ApplicationStart:
     - location: /home/ec2-user/app/step1/deploy.sh
       timeout: 60
-      runas: woojoo-springboot2-webservice
