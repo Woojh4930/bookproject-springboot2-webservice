@@ -41,10 +41,11 @@ jobs:
       shell: bash
 
     - name: Make zip file
-      run: |
-        zip -r bookproject-springboot2-webservice *
-        mkdir -p deploy
-        mv ${{ env.PROJECT_NAME }}.zip ./deploy/${{ env.PROJECT_NAME }}.zip
+      run: zip -r bookproject-springboot2-webservice *
+    - name: Make directory    
+      run: mkdir -p deploy
+    - name: Move zip file
+      run: mv ${{ env.PROJECT_NAME }}.zip ./deploy/${{ env.PROJECT_NAME }}.zip
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1      #(13)
