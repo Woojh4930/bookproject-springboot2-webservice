@@ -5,6 +5,7 @@ files:
   - source:  /
     destination: /home/ec2-user/app/step2/zip/
     overwrite: yes
+file_exists_behavior: OVERWRITE
 
 permissions:
   - object: /
@@ -17,3 +18,4 @@ hooks:
     - location: deploy.sh
       timeout: 60
       runas: ec2-user
+
