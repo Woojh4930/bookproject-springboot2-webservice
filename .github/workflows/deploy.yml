@@ -40,6 +40,8 @@ jobs:
       run: ./gradlew clean -x test build # (8)
       shell: bash
 
+    - name: remove directory
+      run: rmdir before-deploy && rmdir deploy
     - name: Make directory    
       run: mkdir -p before-deploy &&
            cp scripts/*.sh before-deploy/ &&
