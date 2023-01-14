@@ -7,8 +7,8 @@ files:
     overwrite: yes
 
 permissions:
-  - object: /
-    pattern: "**"
+  - object: /data
+    pattern: 775
     owner: woojoo-springboot2-webservice
     group: woojoo-springboot2-webservice
 
