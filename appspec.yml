@@ -15,7 +15,7 @@ permissions:
 
 hooks:
   ApplicationStart:
-    - location: deploy.sh
+    - location: /bookproject-springboot2-webservice/scripts/deploy.sh
       timeout: 60
       runas: ec2-user
 
