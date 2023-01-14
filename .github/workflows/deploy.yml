@@ -3,6 +3,7 @@ env:
   S3_BUCKET_NAME: woojoo-github-actions-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: woojoo-springboot2-webservice
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: woojoo-springboot2-webservice-group
+  PROJECT_NAME: bookproject-springboot2-webservice
 
 name: deploy # (0) GitHub Action에서 보여질 이름을 지정합니다. 
 
@@ -38,22 +39,16 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean -x test build # (8)
       shell: bash
-      
-    - name: Get current time
-      uses: 1466587594/get-current-time@v2 
-      id: current-time
-      with:
-        format: YYYY-MM-DDTHH-mm-ss # (9)
-        utcOffset: "+09:00"
 
-    - name: Show Current Time
-      run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}" # (10)
-      shell: bash
-
-    - name: Make zip file
-      run: zip -r ./$GITHUB_SHA.zip .
-      shell: bash
-
+    - name: Make directory    
+      run: mkdir -p before-deploy &&
+           cp scripts/*.sh before-deploy/ &&
+           cp appspec.yml before-deploy/ &&
+           cp build/libs/*.jar before-deploy/ &&
+           cd before-deploy && zip -r before-deploy * &&
+           cd ../ && mkdir -p deploy &&
+           mv before-deploy/before-deploy.zip deploy/bookproject-springboot2-webservice.zip
+        
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1      #(13)
       with:
@@ -63,7 +58,7 @@ jobs:
         
 
     - name: Upload to AWS S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+      run: aws s3 cp --region ap-northeast-2 ./deploy/${{ env.PROJECT_NAME }}.zip s3://$S3_BUCKET_NAME/${{ env.PROJECT_NAME }}.zip
 
     - name: Deploy to AWS EC2 from S3
       run: |
@@ -71,4 +66,4 @@ jobs:
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-          --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
+          --s3-location bucket=$S3_BUCKET_NAME,key=${{ env.PROJECT_NAME }}.zip,bundleType=zip
